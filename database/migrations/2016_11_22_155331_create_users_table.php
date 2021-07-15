@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateUsersTable extends Migration
 {
@@ -14,8 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('school_id');
             $table->string('name');
-            $table->string('email');
+            $table->integer('age');
+            $table->string('email')->nullable();
             $table->string('password')->nullable();
             $table->integer('role_id')->unsigned()->nullable();
             $table->foreign('role_id', 'fk_253_role_role_id_user')->references('id')->on('roles');
@@ -26,6 +29,8 @@ class CreateUsersTable extends Migration
 
             $table->index(['deleted_at']);
         });
+
+        DB::statement('ALTER TABLE users ADD FULLTEXT full(name)');
     }
 
     /**

@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1 class="text-center" style="color: white">SpellingBee</h1>
-{{--            <h3 class="text-center" style="color: white">How well do you know Laravel?</h3>--}}
-            <br />
+            {{--            <h3 class="text-center" style="color: white">How well do you know Laravel?</h3>--}}
+            <br/>
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
@@ -30,34 +30,55 @@
                                value="{{ csrf_token() }}">
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Email</label>
+                            <label class="col-md-4 control-label">School</label>
 
                             <div class="col-md-6">
-                                <input type="email"
+                                <select class="form-control"
+                                        name="school">
+                                    <option selected>Choose School...</option>
+                                    @if(isset($schools) && count($schools))
+                                        @foreach($schools as $school)
+                                            <option value="{{$school->id}}">{{strtoupper($school->name)}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Full Name</label>
+
+                            <div class="col-md-6">
+                                <input type="text"
                                        class="form-control"
-                                       name="email"
-                                       value="{{ old('email') }}">
+                                       name="name"
+                                       value="{{ old('name') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Password</label>
+                            <label class="col-md-4 control-label">Age</label>
 
                             <div class="col-md-6">
-                                <input type="password"
-                                       class="form-control"
-                                       name="password">
+                                <select class="form-control"
+                                        name="age">
+                                    <option selected>Choose age...</option>
+                                    @for($i=7;$i<=17;$i++)
+                                        <option value="{{$i}}">{{$i}} years</option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <label>
-                                    <input type="checkbox"
-                                           name="remember">Remember me
-                                </label>
-                            </div>
-                        </div>
+                        <!--                        <div class="form-group">
+                                                    <div class="col-md-6 col-md-offset-4">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="remember">Remember me
+                                                        </label>
+                                                    </div>
+                                                </div>-->
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -65,35 +86,19 @@
                                         class="btn btn-primary">
                                     Login
                                 </button>
-                                <a href="{{ route('auth.register') }}"
+                            <!--                                <a href="{{ route('auth.register') }}"
                                         class="btn btn-default">
                                     Register
-                                </a>
+                                </a>-->
                                 <br>
-                                <a href="{{ route('auth.password.reset') }}">Forgot password</a>
+                                {{--                                <a href="{{ route('auth.password.reset') }}">Forgot password</a>--}}
                                 <br>
                                 <br>
-                                Or login with:
-                                <br>
-                                <a href="{{ route('oauth2google') }}"
-                                        class="btn btn-info">
-                                    Google
-                                </a>
-                                <a href="{{ route('oauth2facebook') }}"
-                                        class="btn btn-info">
-                                    Facebook
-                                </a>
-                                <a href="{{ route('oauth2github') }}"
-                                        class="btn btn-info">
-                                    GitHub
-                                </a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="text-center" style="color: white">Created by <a href="http://laraveldaily.com">Laravel Daily Team</a></div>
-            <div class="text-center" style="color: white">Powered by <a href="https://quickadminpanel.com">QuickAdminPanel.com</a></div>
         </div>
     </div>
 @endsection
