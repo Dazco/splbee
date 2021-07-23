@@ -23,14 +23,14 @@ class TestsController extends Controller
      */
     public function index()
     {
-        $topics = Topic::where('status', 'pending')->whereDate('start_date', '>=', today())->get();
+        $topics = Topic::where('status', 'pending')->whereDate('start_date', '<=', today())->get();
         return view('tests.index', compact('topics'));
     }
 
     public function start($id){
         $topic = Topic::findOrFail($id);
         $attempts = Test::where('user_id', auth()->user()->id)->count();
-        $max_attempts = 1;
+        $max_attempts = 10;
         return view('tests.create', compact('topic', 'attempts', 'max_attempts'));
     }
 
@@ -67,10 +67,10 @@ class TestsController extends Controller
     {
         $topic = Topic::findOrFail($request->input('topic_id'));
         $result = 0;
-        $max_attempts = 1;
+        $max_attempts = 10;
         if(Test::where('user_id', auth()->user()->id)->where('topic_id', $topic->id)->count() >= $max_attempts){
             return redirect()->back()->with([
-                'error' => 'maximum attempts exceeded'
+                'message' => 'maximum attempts exceeded'
             ]);
         }
         $test = Test::create([

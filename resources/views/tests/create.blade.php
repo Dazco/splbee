@@ -6,7 +6,7 @@
         {!! Form::open(['method' => 'POST', 'route' => ['tests.store']]) !!}
         {!! Form::hidden('topic_id', $topic->id); !!}
 
-        @if(!$attempts >= $max_attempts)
+        @if($attempts < $max_attempts)
         <div class="panel panel-default">
             <div class="panel-heading">
                 Click to button below to take your quiz
