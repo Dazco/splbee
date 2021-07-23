@@ -41,6 +41,7 @@ class ResultsController extends Controller
     public function show($id)
     {
         $test = Test::find($id)->load('user');
+        $pass_score = 85;
 
         if ($test) {
             $results = TestAnswer::where('test_id', $id)
@@ -48,6 +49,10 @@ class ResultsController extends Controller
                 ->with('question.options')
                 ->get()
             ;
+        }
+
+        if((($test->result / $results->count()) * 100) >= $pass_score ){
+            session()->flash('message', "You've qualified and would be contacted soon");
         }
 
         return view('results.show', compact('test', 'results'));

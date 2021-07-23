@@ -30,7 +30,7 @@ class TestsController extends Controller
     public function start($id){
         $topic = Topic::findOrFail($id);
         $attempts = Test::where('user_id', auth()->user()->id)->count();
-        $max_attempts = 10;
+        $max_attempts = 1;
         return view('tests.create', compact('topic', 'attempts', 'max_attempts'));
     }
 
@@ -67,7 +67,7 @@ class TestsController extends Controller
     {
         $topic = Topic::findOrFail($request->input('topic_id'));
         $result = 0;
-        $max_attempts = 10;
+        $max_attempts = 1;
         if(Test::where('user_id', auth()->user()->id)->where('topic_id', $topic->id)->count() >= $max_attempts){
             return redirect()->back()->with([
                 'message' => 'maximum attempts exceeded'
@@ -85,6 +85,11 @@ class TestsController extends Controller
         $result = 0;
 
         $test = Test::findOrFail($request->input('test_id'));
+        if($test->status == 'completed'){
+            return redirect()->back()->with([
+                'message' => 'This test has already been completed'
+            ]);
+        }
 
         foreach ($request->input('questions', []) as $key => $question) {
             $status = 0;
