@@ -12,6 +12,26 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    {!! Form::label('school', 'School*', ['class' => 'control-label']) !!}
+                    <select class="form-control"
+                            name="school">
+                        <option selected>Choose School...</option>
+                        @if(isset($schools) && count($schools))
+                            @foreach($schools as $school)
+                                <option value="{{$school->id}}">{{strtoupper($school->name)}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    <p class="help-block"></p>
+                    @if($errors->has('school'))
+                        <p class="help-block">
+                            {{ $errors->first('school') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
                     {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
@@ -24,24 +44,18 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('email', 'Email*', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    {!! Form::label('age', 'Age*', ['class' => 'control-label']) !!}
+                    <select class="form-control"
+                            name="age">
+                        <option selected>Choose age...</option>
+                        @for($i=7;$i<=17;$i++)
+                            <option value="{{$i}}">{{$i}} years</option>
+                        @endfor
+                    </select>
                     <p class="help-block"></p>
-                    @if($errors->has('email'))
+                    @if($errors->has('age'))
                         <p class="help-block">
-                            {{ $errors->first('email') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('password'))
-                        <p class="help-block">
-                            {{ $errors->first('password') }}
+                            {{ $errors->first('age') }}
                         </p>
                     @endif
                 </div>

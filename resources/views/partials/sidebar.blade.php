@@ -46,6 +46,14 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu">
+                    <li class="{{ $request->segment(1) == 'schools' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('schools.index') }}">
+                            <i class="fa fa-briefcase"></i>
+                            <span class="title">
+                                Schools
+                            </span>
+                        </a>
+                    </li>
                     <li class="{{ $request->segment(1) == 'roles' ? 'active active-sub' : '' }}">
                         <a href="{{ route('roles.index') }}">
                             <i class="fa fa-briefcase"></i>

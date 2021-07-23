@@ -21,7 +21,7 @@ class User extends Authenticatable
 {
     use SoftDeletes, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'remember_token', 'role_id'];
+    protected $fillable = ['school_id', 'age', 'name', 'email', 'password', 'remember_token', 'role_id'];
 
     public static function boot()
     {
@@ -65,6 +65,10 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function school(){
+        return $this->belongsTo(School::class, 'school_id');
     }
 
 }

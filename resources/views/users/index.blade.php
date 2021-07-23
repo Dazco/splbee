@@ -17,7 +17,9 @@
                 <thead>
                     <tr>
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
+                        <th>School</th>
                         <th>@lang('quickadmin.users.fields.name')</th>
+                        <th>Age</th>
                         <th>@lang('quickadmin.users.fields.email')</th>
                         <th>@lang('quickadmin.users.fields.role')</th>
                         <th>&nbsp;</th>
@@ -29,8 +31,10 @@
                         @foreach ($users as $user)
                             <tr data-entry-id="{{ $user->id }}">
                                 <td></td>
+                                <td>{{ $user->school->name ?: '-' }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->age }}</td>
+                                <td>{{ $user->email ?: '-' }}</td>
                                 <td>{{ $user->role->title or '' }}</td>
                                 <td>
                                     <a href="{{ route('users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>

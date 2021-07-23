@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\School;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUsersRequest;
@@ -21,7 +22,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('school')->get()->all();
 
         return view('users.index', compact('users'));
     }
@@ -34,6 +35,7 @@ class UsersController extends Controller
     public function create()
     {
         $relations = [
+            'schools' => School::all(),
             'roles' => \App\Role::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
 
@@ -48,7 +50,7 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-        User::create($request->all());
+        User::create($request->all() + ['school_id' => $request->school]);
 
         return redirect()->route('users.index');
     }
@@ -63,10 +65,11 @@ class UsersController extends Controller
     public function edit($id)
     {
         $relations = [
+            'schools' => School::all(),
             'roles' => \App\Role::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
 
-        $user = User::findOrFail($id);
+        $user = User::with('school')->findOrFail($id);
 
         return view('users.edit', compact('user') + $relations);
     }
@@ -81,7 +84,7 @@ class UsersController extends Controller
     public function update(UpdateUsersRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->update($request->all());
+        $user->update($request->all() + ['school_id' => $request->school]);
 
         return redirect()->route('users.index');
     }
@@ -99,7 +102,7 @@ class UsersController extends Controller
             'roles' => \App\Role::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
 
-        $user = User::findOrFail($id);
+        $user = User::with('school')->findOrFail($id);
 
         return view('users.show', compact('user') + $relations);
     }
