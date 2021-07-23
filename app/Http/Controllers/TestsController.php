@@ -14,6 +14,8 @@ use App\Http\Requests\StoreTestRequest;
 
 class TestsController extends Controller
 {
+
+
     /**
      * Display a new test.
      *
@@ -21,7 +23,12 @@ class TestsController extends Controller
      */
     public function index()
     {
-        $topic = Topic::where('status', 'pending')->whereDate('start_date', today())->first();
+        $topics = Topic::where('status', 'pending')->whereDate('start_date', '>=', today())->get();
+        return view('tests.index', compact('topics'));
+    }
+
+    public function start($id){
+        $topic = Topic::findOrFail($id);
         $attempts = Test::where('user_id', auth()->user()->id)->count();
         $max_attempts = 1;
         return view('tests.create', compact('topic', 'attempts', 'max_attempts'));
