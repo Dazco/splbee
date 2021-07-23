@@ -23,7 +23,7 @@ class TestsController extends Controller
      */
     public function index()
     {
-        $topics = Topic::where('status', 'pending')->whereDate('start_date', '<=', today())->get();
+        $topics = Topic::where('status', 'pending')->whereDate('start_date', '<=', today('Africa/Lagos'))->get();
         return view('tests.index', compact('topics'));
     }
 
