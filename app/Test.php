@@ -30,4 +30,8 @@ class Test extends Model
     public function topic(){
         return $this->belongsTo(Topic::class, 'topic_id');
     }
+
+    public function answers(){
+        return $this->hasMany(TestAnswer::class, 'test_id');
+    }
 }

@@ -111,7 +111,7 @@
                 }
             }
 
-            if(i == questionsCount){
+            if(i >= questionsCount){
                 $('#next-btn').hide();
                 $('#submit-btn').show();
             }

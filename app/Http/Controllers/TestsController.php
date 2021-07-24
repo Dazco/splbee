@@ -29,7 +29,7 @@ class TestsController extends Controller
 
     public function start($id){
         $topic = Topic::findOrFail($id);
-        $attempts = Test::where('user_id', auth()->user()->id)->count();
+        $attempts = Test::where('topic_id', $topic->id)->where('user_id', auth()->user()->id)->count();
         $max_attempts = 1;
         return view('tests.create', compact('topic', 'attempts', 'max_attempts'));
     }
