@@ -1,6 +1,6 @@
 <?php
 Route::get('/', function () {
-    return redirect('/home');
+    return view('homepage');
 });
 
 // Auth::routes();

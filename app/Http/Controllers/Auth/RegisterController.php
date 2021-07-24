@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\School;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -39,33 +40,39 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $schools = School::all();
+        return view('auth.register', compact('schools'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name'     => 'required|max:255',
-            'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name' => 'required',
+            'school' => 'required|exists:schools,id',
+            'age' => 'required|numeric|min:7'
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return User
      */
     protected function create(array $data)
     {
         return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name' => $data['name'],
+            'school_id' => $data['school'],
+            'age' => $data['age'],
         ]);
     }
 }
