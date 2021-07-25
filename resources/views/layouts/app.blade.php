@@ -7,63 +7,68 @@
 
 <body class="page-header-fixed">
 
-    @include('partials.analytics')
+@include('partials.analytics')
 
-    <div class="page-header navbar navbar-fixed-top">
-        @include('partials.header')
+<div class="page-header navbar navbar-fixed-top">
+    @include('partials.header')
+</div>
+
+<div class="clearfix"></div>
+
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        @include('partials.sidebar')
     </div>
 
-    <div class="clearfix"></div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
 
-    <div class="page-container">
-        <div class="page-sidebar-wrapper">
-            @include('partials.sidebar')
-        </div>
+            @if(isset($siteTitle))
+                <h3 class="page-title">
+                    {{ $siteTitle }}
+                </h3>
+            @endif
 
-        <div class="page-content-wrapper">
-            <div class="page-content">
+            <div class="row">
+                <div class="col-md-12">
 
-                @if(isset($siteTitle))
-                    <h3 class="page-title">
-                        {{ $siteTitle }}
-                    </h3>
-                @endif
+                    @if (Session::has('message'))
+                        <div class="note note-info">
+                            <p>{!! Session::get('message') !!}</p>
+                        </div>
+                    @endif
+                    @if (Session::has('error'))
+                        <div class="note note-danger">
+                            <p>{!! Session::get('error') !!}</p>
+                        </div>
+                    @endif
+                    @if ($errors->count() > 0)
+                        <div class="note note-danger">
+                            <ul class="list-unstyled">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                <div class="row">
-                    <div class="col-md-12">
+                    @yield('content')
 
-                        @if (Session::has('message'))
-                            <div class="note note-info">
-                                <p>{{ Session::get('message') }}</p>
-                            </div>
-                        @endif
-                        @if ($errors->count() > 0)
-                            <div class="note note-danger">
-                                <ul class="list-unstyled">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @yield('content')
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="scroll-to-top"
-         style="display: none;">
-        <i class="fa fa-arrow-up"></i>
-    </div>
+<div class="scroll-to-top"
+     style="display: none;">
+    <i class="fa fa-arrow-up"></i>
+</div>
 
-    {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
-        <button type="submit">Logout</button>
-    {!! Form::close() !!}
+{!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
+<button type="submit">Logout</button>
+{!! Form::close() !!}
 
-    @include('partials.javascripts')
+@include('partials.javascripts')
 </body>
 </html>
