@@ -31,6 +31,18 @@ class TestsController extends Controller
         $topic = Topic::findOrFail($id);
         $attempts = Test::where('topic_id', $topic->id)->where('user_id', auth()->user()->id)->count();
         $max_attempts = 1;
+
+        if($topic->title  == 'Junior Category'){
+            $topic2 = Topic::where('title', 'Senior Category')->first();
+            if($topic2 && Test::where('topic_id', $topic2->id)->where('user_id', auth()->user()->id)->count() > 0){
+                return redirect()->back()->with(['error' => "You've attempted the Senior Category quiz and are no longer eligible for this one"]);
+            }
+        }elseif ($topic->title  == 'Senior Category'){
+            $topic2 = Topic::where('title', 'Junior Category')->first();
+            if($topic2 && Test::where('topic_id', $topic2->id)->where('user_id', auth()->user()->id)->count() > 0){
+                return redirect()->back()->with(['error' => "You've attempted the Junior Category quiz and are no longer eligible for this one"]);
+            }
+        }
         return view('tests.create', compact('topic', 'attempts', 'max_attempts'));
     }
 
