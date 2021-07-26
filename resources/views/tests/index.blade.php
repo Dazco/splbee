@@ -9,10 +9,9 @@
         </div>
 
         <div class="panel-body">
-            <table class="table table-bordered table-striped {{ count($topics) > 0 ? 'datatable' : '' }} dt-select">
+            <table class="table table-bordered table-striped {{ count($topics) > 0 ? 'datatable' : '' }}">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>@lang('quickadmin.topics.fields.title')</th>
                     <th>Start Date</th>
                     <th>Timer (seconds)</th>
@@ -25,7 +24,6 @@
                 @if (count($topics) > 0)
                     @foreach ($topics as $topic)
                         <tr data-entry-id="{{ $topic->id }}">
-                            <td></td>
                             <td>{{ $topic->title }}</td>
                             <td>{{ $topic->start_date }}</td>
                             <td>{{ $topic->timer }}</td>
