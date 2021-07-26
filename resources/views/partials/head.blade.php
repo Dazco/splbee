@@ -28,6 +28,8 @@
 <link rel="stylesheet"
       href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"/>
 <link rel="stylesheet"
+      href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet"
       href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css"/>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css"/>

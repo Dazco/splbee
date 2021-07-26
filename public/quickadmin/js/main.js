@@ -10,7 +10,10 @@ $(document).ready(function () {
     $('.datatable').each(function() {
         var options = {
             retrieve: true,
-            dom: 'frtip<"actions">',
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf', 'csv', 'excel', 'print'
+            ],
             columnDefs: [],
             "iDisplayLength": 100,
             "aaSorting": []
