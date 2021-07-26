@@ -29,7 +29,7 @@
                                 <td>{{ $result->user->name or '' }} ({{ $result->user->email or '' }})</td>
                             @endif
                                 <td>{{ $result->created_at or '' }}</td>
-                                <td>{{ $result->result }}/10</td>
+                                <td>{{$result->answers()->count() > 0? ($result->result / $result->answers()->count()) * 100 : 0 }}%</td>
                                 <td>
                                     <a href="{{ route('results.show',[$result->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
                                 </td>

@@ -50,7 +50,7 @@ class ResultsController extends Controller
                 ->get();
         }
         $count = $results->count();
-        if ((($count > 0 && $test->result / $count) * 100) >= $pass_score) {
+        if ($count > 0 && (($test->result / $count) * 100) >= $pass_score) {
             session()->flash('message', "Congratulations!!! <br> You have qualified to compete at the Intercontinental Spelling Bee taking place at the Springdales School, Dubai UAE from 22nd - 27th September, 2021. <br>Further details will be communicated with you.");
         } else {
             session()->flash('error', "Oops!!! <br> You have failed to qualify for the ICSB in Dubai 2021. <br> You stand a good chance next season, so register to participate in the qualifying Spelling Bee competition across the nation starting from October 2021 if you are still within the competition age of 17 years old.");
